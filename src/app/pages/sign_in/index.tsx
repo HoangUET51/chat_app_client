@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import SignInTemplate from "./_index";
 
 export default function SignIn() {
-  return <SignInTemplate />;
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => setShowPassword(!showPassword);
+
+  return (
+    <SignInTemplate
+      showPassword={showPassword}
+      handleShowPassword={handleShowPassword}
+    />
+  );
 }
