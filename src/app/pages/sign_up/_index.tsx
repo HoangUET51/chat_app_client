@@ -9,24 +9,26 @@ import {
   IconButton,
   TextField,
   Checkbox,
+  Select,
+  MenuItem,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import KeyIcon from "@mui/icons-material/Key";
 import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
-import { TextSignIn } from "@app/constants/signin.const";
-import device from "../../../assets/images/svg/device.svg";
-import icon_gg from "../../../assets/images/svg/icon-gg.svg";
-import icon_fb from "../../../assets/images/svg/icons-fb.svg";
-import "../../styles/signin.scss";
+import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
+import PhoneIcon from "@mui/icons-material/Phone";
+import signUp from "../../../assets/images/svg/icon_sign_up.svg";
+import "../../styles/signup.scss";
+import { Link } from "react-router-dom";
 
-interface ISignIn {
+interface ISignUp {
   showPassword: boolean;
   handleShowPassword: () => void;
 }
 
-export default function SignInTemplate(props: ISignIn) {
+export default function SignUpTemplate(props: ISignUp) {
   const { showPassword, handleShowPassword } = props;
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -36,56 +38,68 @@ export default function SignInTemplate(props: ISignIn) {
       <div className="flex items-center justify-center h-screen w-sreen">
         <div className="flex flex-row min-w-[1024px] min-h-[600px] h-5/6 w-5/6">
           <div className="bg-[#fff] w-6/12 h-full rounded-l-[50px] flex flex-col items-center justify-center border-[1px] border-[#666]">
-            <div className="flex flex-col w-[477px]">
+            <div className="flex flex-col w-[477px] gap-1">
               <span className="text_shadow font-bold text-[40px] text-[#09090B]">
-                {TextSignIn.TITLE_LOGIN}
+                Create your account
               </span>
-              <span className="text_shadow text-[20px] font-normal leading-[24px] text-[#71717A]">
-                {TextSignIn.SUB_TITLE}
+              <span className="text_shadow text-[20px] font-normal leading-[24px] text-[#71717A] mb-[25px]">
+                Unlock all Features!
               </span>
-              <div className="flex flex-row gap-10 mt-10">
-                <Button
-                  variant="outlined"
-                  className="w-[215px] h-[60px] shadow-lg"
-                  style={{
-                    borderRadius: 10,
-                  }}
-                >
-                  <img
-                    src={icon_gg}
-                    alt="icon-gg"
-                    width={30}
-                    className="mr-2"
-                  />
-                  <span className="text-[22px] font-medium capitalize">
-                    Google
-                  </span>
-                </Button>
-                <Button
-                  variant="outlined"
-                  className="w-[215px] h-[60px] shadow-lg"
-                  style={{
-                    borderRadius: 10,
-                  }}
-                >
-                  <img
-                    src={icon_fb}
-                    alt="icon-fb"
-                    width={30}
-                    className="mr-2"
-                  />
-                  <span className="text-[22px] font-medium capitalize">
-                    Facebook
-                  </span>
-                </Button>
-              </div>
-              <div className="line_text text_shadow text-[#71717a] text-[15px] my-5">
-                {TextSignIn.TEXT_INSTRUCT}
-              </div>
 
               <TextField
                 sx={{ m: 1 }}
-                id="email_login"
+                id="user_sign_up"
+                label="Username"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PersonIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                className="shadow-lg"
+              />
+              <TextField
+                sx={{ m: 1 }}
+                id="address_sign_up"
+                label="Address"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <HomeIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                className="shadow-lg"
+              />
+              <TextField
+                sx={{ m: 1 }}
+                id="phone_sign_up"
+                label="Phone"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PhoneIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                className="shadow-lg"
+              />
+              <FormControl sx={{ m: 1 }}>
+                <InputLabel id="gender-select-label">Gender</InputLabel>
+                <Select
+                  labelId="gender-select-label"
+                  id="gender_sign_up"
+                  label="Gender"
+                >
+                  <MenuItem value={1}>Male</MenuItem>
+                  <MenuItem value={2}>Female</MenuItem>
+                  <MenuItem value={3}>Other</MenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                sx={{ m: 1 }}
+                id="email_signup"
                 label="Email"
                 InputProps={{
                   startAdornment: (
@@ -102,11 +116,9 @@ export default function SignInTemplate(props: ISignIn) {
                 variant="outlined"
                 className="shadow-lg"
               >
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
+                <InputLabel htmlFor="signup-password">Password</InputLabel>
                 <OutlinedInput
-                  id="outlined-adornment-password"
+                  id="signup-password"
                   type={showPassword ? "text" : "password"}
                   startAdornment={
                     <InputAdornment position="start">
@@ -132,14 +144,9 @@ export default function SignInTemplate(props: ISignIn) {
                 <div className="flex flex-row items-center">
                   <Checkbox {...label} />
                   <span className="text-[#71717A] text-[16px] font-normal text_shadow">
-                    {TextSignIn.TEXT_REMEMBER}
+                    Accept terms and conditions
                   </span>
                 </div>
-                <Link className="pr-[10px]" to="/forgot-password">
-                  <span className="text_shadow text-[#8098F9] text-[16px]">
-                    {TextSignIn.TEXT_FORGOT}
-                  </span>
-                </Link>
               </div>
 
               <Button
@@ -151,27 +158,27 @@ export default function SignInTemplate(props: ISignIn) {
                 variant="contained"
                 className="h-[64px] text-[20px] font-bold"
               >
-                <span className="text-[20px] font-bold">LOG IN</span>
+                <span className="text-[20px] font-bold">CREATE ACCOUNT</span>
               </Button>
               <div className="text-center">
                 <span className="text_shadow pr-[3px] text-[#71717A] text-[16px]">
-                  {TextSignIn.TEXT_ACCOUNT}
+                  You have account?
                 </span>
-                <Link to="/sign-up">
+                <Link to="/">
                   <span className="text_shadow text-[#8098F9] text-[16px]">
-                    {TextSignIn.TEXT_CREATE}
+                    Login now
                   </span>
                 </Link>
               </div>
             </div>
           </div>
           <div className="bg-[#6172F3] w-6/12 h-full flex flex-col justify-center items-center rounded-r-[50px]">
-            <img src={device} alt="device" className="w-2/3 h-2/3" />
+            <img src={signUp} alt="device" className="w-2/3 h-2/3" />
             <span className="text_shadow text-[20px] text-[#E0EAFF] font-bold">
-              {TextSignIn.TEXT_CONNECT}
+              Join us!
             </span>
             <span className="text-[#E0EAFF] text-[16px] opacity-75 font-medium">
-              {TextSignIn.TEXT_EVERY}
+              Just go through the boring process of creating an account.
             </span>
           </div>
         </div>

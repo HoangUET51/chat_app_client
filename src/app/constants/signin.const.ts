@@ -1,0 +1,16 @@
+export const TextSignIn = {
+  TITLE_LOGIN: "Login to your Account",
+  SUB_TITLE: " Welcome back! Select method to log in:",
+  BTN_GG: "Google",
+  BTN_FB: "Facebook",
+  TEXT_INSTRUCT: "or continue with email",
+  LABEL_EMAIL: "Email",
+  LABEL_PASSWORD: "Password",
+  TEXT_REMEMBER: "Remember me",
+  TEXT_FORGOT: "Forgot password",
+  BTN_LOG_IN: "LOG IN",
+  TEXT_ACCOUNT: "Don’t have account?",
+  TEXT_CREATE: "Create an account",
+  TEXT_CONNECT: " Connect with any device.",
+  TEXT_EVERY: "Everything you need is an internet connection.",
+};

@@ -1,0 +1,34 @@
+.text_shadow {
+  text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2),
+    0px -5px 35px rgba(255, 255, 255, 0.3);
+}
+
+.line_text {
+  position: relative;
+  text-align: center;
+
+  &:before {
+    display: block;
+    content: "";
+    width: 120px;
+    height: 1px;
+    background: #71717a;
+    left: 350px;
+    top: 50%;
+    position: absolute;
+  }
+  &:after {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 1px;
+    background: #71717a;
+    right: 350px;
+    top: 50%;
+    position: absolute;
+  }
+}
+
+.button_custom {
+  border-radius: 15px;
+}
