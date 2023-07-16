@@ -2,10 +2,10 @@ import HttpService from "@core/services/http/http.service";
 import { LoginResponse, SignUpRequest } from "@app/types";
 
 class _AuthService {
-  public login(username: string, password: string) {
-    return HttpService.post<LoginResponse>("/accounts/login", {
+  public login(email: string, password: string) {
+    return HttpService.post<LoginResponse>("/login", {
       body: {
-        username,
+        email,
         password,
       },
     });
@@ -14,6 +14,12 @@ class _AuthService {
   public signUp(signUpRequest: SignUpRequest) {
     return HttpService.post<LoginResponse>("/accounts", {
       body: { ...signUpRequest },
+    });
+  }
+
+  public getChatApp(userIds: string[]) {
+    return HttpService.post<any>("/chat/chat-room", {
+      body: { userIds: [...userIds] },
     });
   }
 }

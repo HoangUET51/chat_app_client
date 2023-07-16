@@ -28,8 +28,6 @@ interface ISignUp {
   handleShowPassword: () => void;
   handleSubmit: any;
   register: any;
-  onSubmitHandler: (values: any) => void;
-  methods: any;
   errors: any;
   handleOnChange: (
     event:
@@ -49,11 +47,6 @@ export default function SignUpTemplate(props: ISignUp) {
   const {
     showPassword,
     handleShowPassword,
-    handleSubmit,
-    register,
-    onSubmitHandler,
-    methods,
-    errors,
     handleOnChange,
     email,
     password,
@@ -78,12 +71,9 @@ export default function SignUpTemplate(props: ISignUp) {
                 Unlock all Features!
               </span>
               <TextField
+                autoComplete="userName"
                 required
-                error={!!errors["userName"]}
-                helperText={
-                  errors["userName"] ? errors["userName"].message : ""
-                }
-                {...register("userName")}
+                error={userName ? false : true}
                 autoFocus
                 sx={{ m: 1 }}
                 id="user_sign_up"
@@ -101,6 +91,7 @@ export default function SignUpTemplate(props: ISignUp) {
               />
               <TextField
                 required
+                error={address ? false : true}
                 sx={{ m: 1 }}
                 id="address_sign_up"
                 label="Address"
@@ -117,6 +108,7 @@ export default function SignUpTemplate(props: ISignUp) {
               />
               <TextField
                 required
+                error={phone ? false : true}
                 sx={{ m: 1 }}
                 id="phone_sign_up"
                 label="Phone"
@@ -131,7 +123,7 @@ export default function SignUpTemplate(props: ISignUp) {
                 value={phone ?? ""}
                 onChange={(event) => handleOnChange(event, "PHONE")}
               />
-              <FormControl sx={{ m: 1 }}>
+              <FormControl sx={{ m: 1 }} error={gender ? false : true}>
                 <InputLabel id="gender-select-label" required>
                   Gender
                 </InputLabel>
@@ -149,6 +141,7 @@ export default function SignUpTemplate(props: ISignUp) {
               </FormControl>
               <TextField
                 required
+                error={email ? false : true}
                 sx={{ m: 1 }}
                 id="email_signup"
                 label="Email"
@@ -169,6 +162,7 @@ export default function SignUpTemplate(props: ISignUp) {
                 variant="outlined"
                 className="shadow-lg"
                 required
+                error={password ? false : true}
               >
                 <InputLabel htmlFor="signup-password">Password</InputLabel>
                 <OutlinedInput

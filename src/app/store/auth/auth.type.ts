@@ -1,8 +1,14 @@
 export interface AuthState {
-  _id: string;
-  username: string;
-  role: string;
-  jwt: string;
+  user: {
+    _id: string;
+    email: string;
+    fullName: string;
+    avatar: string;
+    address: string;
+    gender: string;
+    phone: string;
+  };
+  accessToken: string;
 }
 
 export enum AuthActionType {

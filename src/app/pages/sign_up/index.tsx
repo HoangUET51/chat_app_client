@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SignUpTemplate from "./_index";
-import { object, string, TypeOf } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { SelectChangeEvent } from "@mui/material";
+import registerSchema from "@app/constants/signup.const";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -43,48 +43,13 @@ export default function SignUp() {
     }
   };
 
-  const registerSchema = object({
-    userName: string()
-      .nonempty("Name is required")
-      .max(32, "Name must be less than 100 characters"),
-    address: string()
-      .nonempty("Address is required")
-      .max(32, "Address must be less than 100 characters"),
-    phone: string()
-      .nonempty("Phone is required")
-      .max(10, "Phone must be 10 characters"),
-    gender: string().nonempty("Gender is required"),
-    email: string().nonempty("Email is required").email("Email is invalid"),
-    password: string()
-      .nonempty("Password is required")
-      .min(8, "Password must be more than 8 characters")
-      .max(32, "Password must be less than 32 characters"),
-    passwordConfirm: string().nonempty("Please confirm your password"),
-  }).refine((data) => data.password === data.passwordConfirm, {
-    path: ["passwordConfirm"],
-    message: "Passwords do not match",
-  });
-
-  type RegisterInput = TypeOf<typeof registerSchema>;
-
-  const methods = useForm<RegisterInput>({
-    resolver: zodResolver(registerSchema),
-  });
-
   const {
-    reset,
-    handleSubmit,
     register,
-    formState: { isSubmitSuccessful, errors },
-  } = methods;
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful]);
-
-  const onSubmitHandler: SubmitHandler<RegisterInput> = (values) => {};
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
 
   return (
     <SignUpTemplate
@@ -92,8 +57,6 @@ export default function SignUp() {
       handleShowPassword={handleShowPassword}
       handleSubmit={handleSubmit}
       register={register}
-      onSubmitHandler={onSubmitHandler}
-      methods={methods}
       errors={errors}
       handleOnChange={handleOnChange}
       email={email}
