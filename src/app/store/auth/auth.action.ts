@@ -5,7 +5,7 @@ import { AuthActionType } from "./auth.type";
 export const storeUser = (user: LoginResponse): AppAction => {
   return {
     type: AuthActionType.STORE_AUTH,
-    payload: { user },
+    payload: user,
   };
 };
 

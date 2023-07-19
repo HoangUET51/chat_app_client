@@ -33,6 +33,7 @@ interface ISignIn {
   ) => void;
   email: string;
   password: string;
+  remembered: boolean;
   handleLogin: () => void;
 }
 
@@ -44,6 +45,7 @@ export default function SignInTemplate(props: ISignIn) {
     email,
     password,
     handleLogin,
+    remembered,
   } = props;
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -156,7 +158,11 @@ export default function SignInTemplate(props: ISignIn) {
 
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center">
-                  <Checkbox {...label} />
+                  <Checkbox
+                    {...label}
+                    onChange={(event) => handleOnChange(event, "REMEMBERED")}
+                    checked={remembered}
+                  />
                   <span className="text-[#71717A] text-[16px] font-normal text_shadow">
                     {TextSignIn.TEXT_REMEMBER}
                   </span>

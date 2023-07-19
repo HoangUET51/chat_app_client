@@ -4,17 +4,21 @@ import { SelectChangeEvent } from "@mui/material";
 import AuthService from "@app/services/http/auth.service";
 import StorageService from "@core/services/storage";
 import { ACCESS_TOKEN_KEY } from "@app/constants";
-import HttpService from "@core/services/http/http.service";
 import { useNavigate } from "react-router-dom";
-import { AuthActionType } from "@app/store/auth";
-import { LoginResponse } from "@app/types";
-import { ofType } from "redux-observable";
+import { useDispatch } from "react-redux";
+import { storeUser } from "@app/store/auth/auth.action";
+import useObservable from "@core/hooks/use-observable.hook";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [remembered, setRemembered] = useState(true);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { subscribeOnce } = useObservable();
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -31,17 +35,24 @@ export default function SignIn() {
       case "PASSWORD":
         setPassword(event.target.value);
         break;
+      case "REMEMBERED":
+        setEmail(email);
+        setPassword(password);
+        setRemembered(!remembered);
+        break;
     }
   };
 
   const handleLogin = () => {
-    HttpService.subscribeOnce<LoginResponse>(
+    subscribeOnce(
       AuthService.login(email.trim(), password.trim()),
-      (res) => {
-        const authenEpic = (action$: any, state$: any) =>
-          action$.pipe(ofType(AuthActionType.STORE_AUTH));
+      (response) => {
+        dispatch(
+          storeUser({ user: response.user, accessToken: response.accessToken })
+        );
 
-        StorageService.set(ACCESS_TOKEN_KEY, res.accessToken);
+        StorageService.set(ACCESS_TOKEN_KEY, response.accessToken);
+
         navigate("/forgot-password");
       }
     );
@@ -54,6 +65,7 @@ export default function SignIn() {
       handleOnChange={handleOnChange}
       email={email}
       password={password}
+      remembered={remembered}
       handleLogin={handleLogin}
     />
   );
