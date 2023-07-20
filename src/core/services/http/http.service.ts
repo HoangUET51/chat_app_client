@@ -5,6 +5,8 @@ import {
   NEVER,
   Observable,
   Subject,
+  Subscription,
+  take,
   throwError,
 } from "rxjs";
 import { ajax, AjaxResponse } from "rxjs/ajax";
@@ -169,7 +171,9 @@ class _HttpService {
   }
 
   public handleResponse<T>(ajaxResponse: AjaxResponse<any>): T {
-    return ajaxResponse.response;
+    addToast({ text: ajaxResponse.response.message, status: "valid" });
+
+    return ajaxResponse.response.result.data;
   }
 
   private resolveUri(uri: string): string {
@@ -213,6 +217,13 @@ class _HttpService {
       StorageService.get(ACCESS_TOKEN_KEY) ||
       StorageService.getSession(ACCESS_TOKEN_KEY)
     );
+  }
+
+  public subscribeOnce<T>(
+    observable$: Observable<T>,
+    callback: (data: T) => void
+  ): Subscription {
+    return observable$.pipe(take(1)).subscribe((data) => callback(data));
   }
 }
 

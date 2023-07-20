@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Container,
@@ -11,6 +11,7 @@ import {
   Checkbox,
   Select,
   MenuItem,
+  SelectChangeEvent,
 } from "@mui/material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import KeyIcon from "@mui/icons-material/Key";
@@ -22,14 +23,38 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import signUp from "../../../assets/images/svg/icon_sign_up.svg";
 import "../../styles/signup.scss";
 import { Link } from "react-router-dom";
-
 interface ISignUp {
   showPassword: boolean;
   handleShowPassword: () => void;
+  handleSubmit: any;
+  register: any;
+  errors: any;
+  handleOnChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>,
+    type: string
+  ) => void;
+  email: string;
+  password: string;
+  phone: string;
+  address: string;
+  userName: string;
+  gender: string;
 }
 
 export default function SignUpTemplate(props: ISignUp) {
-  const { showPassword, handleShowPassword } = props;
+  const {
+    showPassword,
+    handleShowPassword,
+    handleOnChange,
+    email,
+    password,
+    phone,
+    address,
+    userName,
+    gender,
+  } = props;
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -45,8 +70,11 @@ export default function SignUpTemplate(props: ISignUp) {
               <span className="text_shadow text-[20px] font-normal leading-[24px] text-[#71717A] mb-[25px]">
                 Unlock all Features!
               </span>
-
               <TextField
+                autoComplete="userName"
+                required
+                error={userName ? false : true}
+                autoFocus
                 sx={{ m: 1 }}
                 id="user_sign_up"
                 label="Username"
@@ -58,8 +86,12 @@ export default function SignUpTemplate(props: ISignUp) {
                   ),
                 }}
                 className="shadow-lg"
+                value={userName ?? ""}
+                onChange={(event) => handleOnChange(event, "USER_NAME")}
               />
               <TextField
+                required
+                error={address ? false : true}
                 sx={{ m: 1 }}
                 id="address_sign_up"
                 label="Address"
@@ -71,8 +103,12 @@ export default function SignUpTemplate(props: ISignUp) {
                   ),
                 }}
                 className="shadow-lg"
+                value={address ?? ""}
+                onChange={(event) => handleOnChange(event, "ADDRESS")}
               />
               <TextField
+                required
+                error={phone ? false : true}
                 sx={{ m: 1 }}
                 id="phone_sign_up"
                 label="Phone"
@@ -84,20 +120,28 @@ export default function SignUpTemplate(props: ISignUp) {
                   ),
                 }}
                 className="shadow-lg"
+                value={phone ?? ""}
+                onChange={(event) => handleOnChange(event, "PHONE")}
               />
-              <FormControl sx={{ m: 1 }}>
-                <InputLabel id="gender-select-label">Gender</InputLabel>
+              <FormControl sx={{ m: 1 }} error={gender ? false : true}>
+                <InputLabel id="gender-select-label" required>
+                  Gender
+                </InputLabel>
                 <Select
                   labelId="gender-select-label"
                   id="gender_sign_up"
                   label="Gender"
+                  value={gender ?? ""}
+                  onChange={(event) => handleOnChange(event, "GENDER")}
                 >
-                  <MenuItem value={1}>Male</MenuItem>
-                  <MenuItem value={2}>Female</MenuItem>
-                  <MenuItem value={3}>Other</MenuItem>
+                  <MenuItem value={"Male"}>Male</MenuItem>
+                  <MenuItem value={"Female"}>Female</MenuItem>
+                  <MenuItem value={"Other"}>Other</MenuItem>
                 </Select>
               </FormControl>
               <TextField
+                required
+                error={email ? false : true}
                 sx={{ m: 1 }}
                 id="email_signup"
                 label="Email"
@@ -109,12 +153,16 @@ export default function SignUpTemplate(props: ISignUp) {
                   ),
                 }}
                 className="shadow-lg"
+                value={email ?? ""}
+                onChange={(event) => handleOnChange(event, "EMAIL")}
               />
 
               <FormControl
                 sx={{ m: 1 }}
                 variant="outlined"
                 className="shadow-lg"
+                required
+                error={password ? false : true}
               >
                 <InputLabel htmlFor="signup-password">Password</InputLabel>
                 <OutlinedInput
@@ -137,6 +185,8 @@ export default function SignUpTemplate(props: ISignUp) {
                     </InputAdornment>
                   }
                   label="Password"
+                  value={password ?? ""}
+                  onChange={(event) => handleOnChange(event, "PASSWORD")}
                 />
               </FormControl>
 

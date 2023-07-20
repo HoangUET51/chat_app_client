@@ -9,6 +9,7 @@ import {
   IconButton,
   TextField,
   Checkbox,
+  SelectChangeEvent,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -24,10 +25,28 @@ import "../../styles/signin.scss";
 interface ISignIn {
   showPassword: boolean;
   handleShowPassword: () => void;
+  handleOnChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>,
+    type: string
+  ) => void;
+  email: string;
+  password: string;
+  remembered: boolean;
+  handleLogin: () => void;
 }
 
 export default function SignInTemplate(props: ISignIn) {
-  const { showPassword, handleShowPassword } = props;
+  const {
+    showPassword,
+    handleShowPassword,
+    handleOnChange,
+    email,
+    password,
+    handleLogin,
+    remembered,
+  } = props;
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -84,6 +103,9 @@ export default function SignInTemplate(props: ISignIn) {
               </div>
 
               <TextField
+                autoFocus
+                required
+                error={email ? false : true}
                 sx={{ m: 1 }}
                 id="email_login"
                 label="Email"
@@ -95,12 +117,16 @@ export default function SignInTemplate(props: ISignIn) {
                   ),
                 }}
                 className="shadow-lg"
+                value={email ?? ""}
+                onChange={(event) => handleOnChange(event, "EMAIL")}
               />
 
               <FormControl
                 sx={{ m: 1 }}
                 variant="outlined"
                 className="shadow-lg"
+                required
+                error={password ? false : true}
               >
                 <InputLabel htmlFor="outlined-adornment-password">
                   Password
@@ -125,12 +151,18 @@ export default function SignInTemplate(props: ISignIn) {
                     </InputAdornment>
                   }
                   label="Password"
+                  value={password ?? ""}
+                  onChange={(event) => handleOnChange(event, "PASSWORD")}
                 />
               </FormControl>
 
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center">
-                  <Checkbox {...label} />
+                  <Checkbox
+                    {...label}
+                    onChange={(event) => handleOnChange(event, "REMEMBERED")}
+                    checked={remembered}
+                  />
                   <span className="text-[#71717A] text-[16px] font-normal text_shadow">
                     {TextSignIn.TEXT_REMEMBER}
                   </span>
@@ -150,6 +182,7 @@ export default function SignInTemplate(props: ISignIn) {
                 sx={{ m: 1 }}
                 variant="contained"
                 className="h-[64px] text-[20px] font-bold"
+                onClick={handleLogin}
               >
                 <span className="text-[20px] font-bold">LOG IN</span>
               </Button>
