@@ -51,7 +51,11 @@ export default function SignIn() {
           storeUser({ user: response.user, accessToken: response.accessToken })
         );
 
-        StorageService.set(ACCESS_TOKEN_KEY, response.accessToken);
+        if (remembered) {
+          StorageService.set(ACCESS_TOKEN_KEY, response.accessToken);
+        } else {
+          StorageService.setSession(ACCESS_TOKEN_KEY, response.accessToken);
+        }
 
         navigate("/forgot-password");
       }

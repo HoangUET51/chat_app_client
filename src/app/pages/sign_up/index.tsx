@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import SignUpTemplate from "./_index";
 import { useForm } from "react-hook-form";
 import { SelectChangeEvent } from "@mui/material";
-import registerSchema from "@app/constants/signup.const";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { registerSchema } from "@app/validations/auth.validation";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
