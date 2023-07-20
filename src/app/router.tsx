@@ -1,21 +1,13 @@
-import { createBrowserRouter } from "react-router-dom";
-import SignIn from "./pages/sign_in";
-import SignUp from "./pages/sign_up";
 import ForgotPassword from "./pages/forgotPassword";
+import { RouteGuardShape } from "@core/types/route.type";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <SignIn />,
-  },
-  {
-    path: "/sign-up",
-    element: <SignUp />,
-  },
+export const routes: RouteGuardShape[] = [
   {
     path: "/forgot-password",
-    element: <ForgotPassword />,
+    component: ForgotPassword,
+    config: {
+      roles: ["ADMIN", "MEMBER"],
+      redirect: "/login",
+    },
   },
-]);
-
-export default router;
+];
