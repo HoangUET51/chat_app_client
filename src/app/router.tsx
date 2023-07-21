@@ -1,4 +1,4 @@
-import ForgotPassword from "./pages/forgotPassword";
+import ForgotPassword from "./pages/forgot-password";
 import { RouteGuardShape } from "@core/types/route.type";
 
 export const routes: RouteGuardShape[] = [
