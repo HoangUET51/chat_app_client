@@ -57,7 +57,7 @@ export default function SignIn() {
           StorageService.setSession(ACCESS_TOKEN_KEY, response.accessToken);
         }
 
-        navigate("/forgot-password");
+        navigate("/messenger");
       }
     );
   };
