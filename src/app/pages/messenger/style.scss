@@ -1,0 +1,63 @@
+.content_special {
+  margin-top: 20px;
+  width: 100%;
+
+  .slick-prev {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin-left: 30px;
+    margin-top: -15px;
+    z-index: 1;
+    color: #959595 !important;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+  .slick-next {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin-right: 30px;
+    margin-top: -15px;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    color: #959595 !important;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .item_special {
+    cursor: pointer;
+    .name {
+      color: #111;
+      padding: 5px 0;
+      font-size: 13px;
+      &:hover {
+        color: rgb(90, 220, 220);
+      }
+    }
+    .avatar {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #e0dbdb;
+      .name_doctor {
+        text-align: center;
+        color: #111;
+        padding: 5px 0;
+        font-size: 13px;
+        &:hover {
+          color: rgb(90, 220, 220);
+        }
+      }
+      .name_special {
+        margin-bottom: 10px;
+        text-align: center;
+        color: #111;
+        font-size: 11px;
+      }
+    }
+  }
+}

@@ -1,5 +1,11 @@
-import { Box, Grid, Paper, InputBase, IconButton } from "@mui/material";
-import React, { useState } from "react";
+import {
+  Box,
+  Grid,
+  Paper,
+  InputBase,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import messager from "../../../assets/images/svg/message.svg";
 import menu from "../../../assets/images/svg/menu.svg";
 import addPerson from "../../../assets/images/svg/add-message.svg";
@@ -8,22 +14,26 @@ import setting from "../../../assets/images/svg/subtract.svg";
 import bell from "../../../assets/images/svg/bell.svg";
 import avatar from "../../../assets/images/svg/vector.svg";
 import SearchIcon from "@mui/icons-material/Search";
-import { ResizableBox } from "react-resizable";
 import { Resizable } from "re-resizable";
+import Slider from "react-slick";
+import "./style.scss";
 
 export default function MessengerTemplate() {
-  const [resize, setResize] = useState({
-    isResizing: false,
-    position: [100, 50],
-  });
-
-  const onResizeStart = (event: unknown, direction: any) => {
-    if (direction === "right") {
-      setResize({
-        ...resize,
-        isResizing: true,
-      });
-    }
+  const settings = {
+    className: "content_special",
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -63,39 +73,95 @@ export default function MessengerTemplate() {
             maxHeight="100%"
             minHeight="100%"
           >
-            <Grid item className="w-full">
-              <div className="flex flex-col p-2">
-                <span className="">Chats</span>
-                <Paper
-                  component="form"
+            <div className="flex flex-col p-2">
+              <span className="">Chats</span>
+              <Paper
+                component="form"
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#EEEEEE",
+                  boxShadow: "0 0 #0000",
+                }}
+              >
+                <InputBase
                   sx={{
-                    p: "2px 4px",
-                    display: "flex",
-                    alignItems: "center",
-                    backgroundColor: "#EEEEEE",
-                    boxShadow: "0 0 #0000",
+                    ml: 1,
+                    flex: 1,
+                    color: "#000000",
+                    fontSize: "15px",
                   }}
+                  placeholder="Search (Ctrl + K)"
+                  inputProps={{ "aria-label": "search" }}
+                />
+                <IconButton
+                  type="button"
+                  sx={{ p: "10px" }}
+                  aria-label="search"
                 >
-                  <InputBase
-                    sx={{
-                      ml: 1,
-                      flex: 1,
-                      color: "#000000",
-                      fontSize: "15px",
-                    }}
-                    placeholder="Search (Ctrl + K)"
-                    inputProps={{ "aria-label": "search" }}
-                  />
-                  <IconButton
-                    type="button"
-                    sx={{ p: "10px" }}
-                    aria-label="search"
-                  >
-                    <SearchIcon />
-                  </IconButton>
-                </Paper>
-              </div>
-            </Grid>
+                  <SearchIcon />
+                </IconButton>
+              </Paper>
+              <Slider {...settings}>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <div className="name">Start Call</div>
+                </div>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <Tooltip title="Vu Van Hoang" placement="top">
+                    <div className="name truncate">Vu Van Hoang</div>
+                  </Tooltip>
+                </div>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <div className="name">Start Call</div>
+                </div>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <div className="name">Start Call</div>
+                </div>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <div className="name">Start Call</div>
+                </div>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <div className="name">Start Call</div>
+                </div>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <div className="name">Start Call</div>
+                </div>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <div className="name">Start Call</div>
+                </div>
+                <div className="item_special flex flex-col items-center text-center">
+                  <div className="w-[50px] h-[50px] bg-slate-400 rounded-full flex flex-row m-auto">
+                    <img src={bell} alt="bell" className="m-auto" />
+                  </div>
+                  <div className="name">Start Call</div>
+                </div>
+              </Slider>
+            </div>
           </Resizable>
 
           <Grid item>hello</Grid>
