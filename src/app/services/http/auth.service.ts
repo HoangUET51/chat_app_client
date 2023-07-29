@@ -17,6 +17,10 @@ class _AuthService {
     });
   }
 
+  public validate(token: string) {
+    return HttpService.post<LoginResponse>(`/auth/validate?token=${token}`);
+  }
+
   public getChatApp(userIds: string[]) {
     return HttpService.post<any>("/chat/chat-room", {
       body: { userIds: [...userIds] },

@@ -65,7 +65,7 @@ export default function ForgotPasswordTemplate(props: IForgotPassword) {
                 <span className="text_shadow pr-[3px] text-[#71717A] text-[16px]">
                   You have password?
                 </span>
-                <Link to="/">
+                <Link to="/login">
                   <span className="text_shadow text-[#8098F9] text-[16px]">
                     Login
                   </span>
