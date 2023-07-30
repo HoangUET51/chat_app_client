@@ -15,12 +15,20 @@ import bell from "../../../assets/images/svg/bell.svg";
 import avatar from "../../../assets/images/svg/vector.svg";
 import union from "../../../assets/images/svg/Union.svg";
 import bgAvatar from "../../../assets/images/avatar-gai-xinh.jpg";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import Picker, { EmojiClickData } from "emoji-picker-react";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import CallIcon from "@mui/icons-material/Call";
 import SearchIcon from "@mui/icons-material/Search";
 import { Resizable } from "re-resizable";
 import Slider from "react-slick";
 import "./style.scss";
+import { useState } from "react";
 
 export default function MessengerTemplate() {
+  const [inputStr, setInputStr] = useState("");
+  const [showPicker, setShowPicker] = useState(false);
+  const [width, setWidth] = useState(380);
   const settings = {
     className: "content_special",
     infinite: false,
@@ -43,6 +51,9 @@ export default function MessengerTemplate() {
         },
       },
     ],
+  };
+  const onEmojiClick = (emojiObject: EmojiClickData, event: MouseEvent) => {
+    setInputStr((prev) => prev + emojiObject.emoji);
   };
 
   return (
@@ -81,8 +92,11 @@ export default function MessengerTemplate() {
             maxWidth={500}
             maxHeight="100%"
             minHeight="100%"
+            onResizeStop={(e, direction, ref, d) => {
+              setWidth(width + d.width);
+            }}
           >
-            <div className="flex flex-col p-2 h-full">
+            <div className="flex flex-col p-2 h-full" id="list_chat">
               <span className="text-[24px] font-bold mt-10 mb-5">Chats</span>
               <Paper
                 component="form"
@@ -449,7 +463,7 @@ export default function MessengerTemplate() {
                     <span className="text-[#262626] font-bold text-[15px]">
                       Vu Van Hoang
                     </span>
-                    <div className="flex flex-row gap-2  text-[#AFAEAE]">
+                    <div className="flex flex-row gap-2 text-[#AFAEAE]">
                       <div className="truncate w-[230px] text-[13px]">
                         Da xong chua hahaasadsadsdsdsadsdsd
                       </div>
@@ -460,8 +474,48 @@ export default function MessengerTemplate() {
               </div>
             </div>
           </Resizable>
-
-          <Grid item>hello</Grid>
+          <Grid
+            item
+            className="chat_messenger"
+            style={{ width: `calc(100% - 60px - ${width}px)` }}
+          >
+            <div className="flex flex-col mt-10 p-2 w-full border-b-[1px] border-[#c7c5c5]">
+              <div className="flex flex-row justify-between">
+                <div className="flex flex-row justify-center items-center">
+                  <img
+                    src={bgAvatar}
+                    alt="bell"
+                    className="m-auto rounded-full"
+                    width={30}
+                    height={30}
+                  />
+                  <div className="ml-2 text-[#262626] font-bold text-[15px]">
+                    Vu Van Hoang
+                  </div>
+                </div>
+                <div className="flex flex-row gap-3 justify-center items-center">
+                  <CallIcon className="cursor-pointer text-[#3399FF] hover:text-[#FF33FF]" />
+                  <VideocamIcon className="cursor-pointer text-[#3399FF] hover:text-[#FF33FF]" />
+                  <SearchIcon className="cursor-pointer text-[#3399FF] hover:text-[#FF33FF]" />
+                  <MoreHorizIcon className="cursor-pointer text-[#3399FF] hover:text-[#FF33FF]" />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row">
+              <input
+                type="text"
+                className="input_style"
+                value={inputStr}
+                onChange={(e) => setInputStr(e.target.value)}
+                onClick={() => setShowPicker((val) => !val)}
+              />
+              <SearchIcon
+                onClick={() => setShowPicker((val) => !val)}
+                className="cursor-pointer text-[#3399FF] hover:text-[#FF33FF]"
+              />
+              {showPicker && <Picker onEmojiClick={onEmojiClick} />}
+            </div>
+          </Grid>
         </Grid>
       </Box>
     </div>
