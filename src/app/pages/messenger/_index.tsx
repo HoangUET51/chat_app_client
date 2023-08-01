@@ -20,6 +20,8 @@ import Picker, { EmojiClickData } from "emoji-picker-react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CallIcon from "@mui/icons-material/Call";
 import SearchIcon from "@mui/icons-material/Search";
+import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
+import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 import { Resizable } from "re-resizable";
 import Slider from "react-slick";
 import "./style.scss";
@@ -501,18 +503,42 @@ export default function MessengerTemplate() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-row">
-              <input
-                type="text"
-                className="input_style"
-                value={inputStr}
-                onChange={(e) => setInputStr(e.target.value)}
-                onClick={() => setShowPicker((val) => !val)}
-              />
-              <SearchIcon
-                onClick={() => setShowPicker((val) => !val)}
-                className="cursor-pointer text-[#3399FF] hover:text-[#FF33FF]"
-              />
+            <div className="flex flex-row m-5">
+              <Paper
+                component="form"
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#EEEEEE",
+                  boxShadow: "0 0 #0000",
+                  borderRadius: "20px",
+                  width: "100%",
+                }}
+              >
+                <InputBase
+                  sx={{
+                    p: "2px 4px",
+                    ml: 1,
+                    flex: 1,
+                    color: "#000000",
+                    fontSize: "15px",
+                  }}
+                  placeholder="Type a message..."
+                  inputProps={{ "aria-label": "search" }}
+                  value={inputStr}
+                  onChange={(e) => setInputStr(e.target.value)}
+                />
+                <IconButton type="button" aria-label="search" sx={{ p: "3px" }}>
+                  <StickyNote2Icon className="text-[#3399FF]" />
+                </IconButton>
+                <IconButton type="button" aria-label="search" sx={{ p: "3px" }}>
+                  <InsertEmoticonRoundedIcon
+                    onClick={() => setShowPicker((val) => !val)}
+                    className="text-[#3399FF]"
+                  />
+                </IconButton>
+              </Paper>
               {showPicker && <Picker onEmojiClick={onEmojiClick} />}
             </div>
           </Grid>
